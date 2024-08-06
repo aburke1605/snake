@@ -4,7 +4,7 @@
 
 #include <windows.h>
 
-constexpr unsigned dt = 500; // milliseconds
+constexpr unsigned dt = 300; // milliseconds
 
 int main() {
 
