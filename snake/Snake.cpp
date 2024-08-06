@@ -1,0 +1,53 @@
+#include <SFML/System.hpp>
+#include <random>
+
+
+
+
+#include <iostream> // remove me
+
+
+class Snake {
+	public:
+		Snake(unsigned int grid_size, std::mt19937& generator) {
+			_body_position_indices = new std::vector<sf::Vector2i>;
+
+			// assign a random starting position within the grid
+			std::uniform_int_distribution<> distribution(0, grid_size - 1);
+			_body_position_indices->push_back(sf::Vector2i(distribution(generator), distribution(generator)));
+
+			_velocity = sf::Vector2i(0, 0);
+		}
+
+
+		sf::Vector2i GetHeadPositionIndex() const {
+			return (*_body_position_indices)[0];
+		}
+
+		std::vector<sf::Vector2i>& GetBodyPositionIndices() const {
+			return *_body_position_indices;
+		}
+
+		void Slither(unsigned int grid_size) {
+			for (auto& index : *_body_position_indices) {
+				index.x += _velocity.x;
+				index.y += _velocity.y;
+
+				// check the segment has not left the grid
+				if (index.x < 0) index.x += (int)grid_size;
+				if (index.x >= (int)grid_size) index.x -= (int)grid_size;
+				if (index.y < 0) index.y += (int)grid_size;
+				if (index.y >= (int)grid_size) index.y -= (int)grid_size;
+			}
+		}
+
+		void ChangeDirection(sf::Vector2i& new_velocity) {
+			_velocity = new_velocity;
+		}
+
+	private:
+		std::vector<sf::Vector2i>* _body_position_indices;
+
+		sf::Vector2i _velocity;
+
+};

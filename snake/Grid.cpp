@@ -1,0 +1,79 @@
+#include <vector>
+
+#include <SFML/Graphics.hpp>
+
+#include "Snake.cpp"
+#include "Food.cpp"
+
+class Grid {
+	public:
+		Grid(sf::RenderWindow& window, unsigned int size = 15) {
+			_size = size;
+
+			_cell_width = (float)window.getSize().x / _size;
+			_cell_height = (float)window.getSize().y / _size;
+
+			for (unsigned int i = 0; i < _size; i++) {
+				_x_coordinates.push_back(i * _cell_width);
+				_y_coordinates.push_back(i * _cell_height);
+			}
+
+
+			_generator = std::mt19937(_rd()); // mersenne_twister_engine seeded with rd()
+
+			_snake = new Snake(_size, _generator);
+			_food = new Food();
+			_food->Reposition(_size, _generator);
+		}
+
+		void ChangeDirection(sf::Vector2i& new_velocity) {
+			// I hate this.
+			_snake->ChangeDirection(new_velocity);
+		}
+
+		void Render(sf::RenderWindow& window) {
+			// reset from previous frame
+			window.clear(sf::Color::Black);
+
+			// move snake along
+			_snake->Slither(_size);
+
+			// draw body segment positions
+			for (auto& index : _snake->GetBodyPositionIndices()) {
+				sf::RectangleShape segment(sf::Vector2f(_cell_width, _cell_height));
+				//mBody.setOrigin(-_cell_width/2, -_cell_height/2);
+				segment.setPosition(sf::Vector2f(_x_coordinates[index.x], _y_coordinates[index.y]));
+				segment.setFillColor(sf::Color(150, 50, 250));
+
+				window.draw(segment);
+			}
+
+			// if snake eats food
+			if (_snake->GetHeadPositionIndex() == (sf::Vector2i)_food->GetPositionIndex()) {
+				_food->Reposition(_size, _generator); // reposition food
+				// grow tail
+			}
+
+			// draw food
+			sf::CircleShape bite((_cell_width + _cell_height) / 2 / 2);
+			sf::Vector2u index = _food->GetPositionIndex();
+			bite.setPosition(sf::Vector2f(_x_coordinates[index.x], _y_coordinates[index.y]));
+			bite.setFillColor(sf::Color(100, 250, 50));
+			window.draw(bite);
+		}
+
+	private:
+		unsigned int _size;
+
+		float _cell_width;
+		float _cell_height;
+
+		std::vector<float> _x_coordinates;
+		std::vector<float> _y_coordinates;
+
+		std::random_device _rd; // a seed source for the random number engine
+		std::mt19937 _generator;
+
+		Snake* _snake;
+		Food* _food;
+};
