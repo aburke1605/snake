@@ -46,6 +46,11 @@ class Snake {
 				if (index.y < 0) index.y += (int)grid_size;
 				if (index.y >= (int)grid_size) index.y -= (int)grid_size;
 			}
+
+			// adjust the velocities from bottom up
+			for (unsigned int i = GetLength() - 1; i > 0; i--) {
+				(*_velocities)[i] = (*_velocities)[i - 1];
+			}
 		}
 
 		void Extend() {
