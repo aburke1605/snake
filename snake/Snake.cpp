@@ -58,9 +58,9 @@ class Snake {
 		}
 
 		void ChangeDirection(sf::Vector2i& new_velocity) {
-			for (auto& velocity : *_velocities) {
-				velocity = new_velocity;
-			}
+			// change only the head velocity
+			// the others follow by the Slither() function
+			_velocities->front() = new_velocity;
 		}
 
 	private:
