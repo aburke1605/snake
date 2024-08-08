@@ -48,6 +48,13 @@ class Snake {
 			}
 		}
 
+		void Extend() {
+			sf::Vector2i& tail_position_index = (*_body_position_indices).back();
+			sf::Vector2i tail_velocity = (*_velocities).back();
+			_body_position_indices->push_back(sf::Vector2i(tail_position_index.x - tail_velocity.x, tail_position_index.y - tail_velocity.y));
+			_velocities->push_back(tail_velocity);
+		}
+
 		void ChangeDirection(sf::Vector2i& new_velocity) {
 			for (auto& velocity : *_velocities) {
 				velocity = new_velocity;

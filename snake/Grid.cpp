@@ -51,7 +51,7 @@ class Grid {
 			// if snake eats food
 			if (_snake->GetHeadPositionIndex() == (sf::Vector2i)_food->GetPositionIndex()) {
 				_food->Reposition(_size, _generator); // reposition food
-				// grow tail
+				_snake->Extend(); // grow tail
 			}
 
 			// draw food
