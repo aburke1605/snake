@@ -59,7 +59,7 @@ class Grid {
 			// if snake eats food
 			if (_snake->GetHeadPositionIndex() == (sf::Vector2i)_food->GetPositionIndex()) {
 				// reposition the food, but not in any square that the snake occupies
-				auto snake_body_indices = _snake->GetBodyPositionIndices();
+				std::vector<sf::Vector2i> snake_body_indices = _snake->GetBodyPositionIndices();
 				while (std::find(snake_body_indices.begin(), snake_body_indices.end(), (sf::Vector2i)_food->GetPositionIndex()) != snake_body_indices.end())
 					_food->Reposition(_size, _generator);
 
