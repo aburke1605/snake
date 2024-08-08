@@ -54,6 +54,16 @@ class Snake {
 		}
 
 		bool SelfConsumes() {
+			sf::Vector2i& head_index = GetHeadPositionIndex();
+
+			// starting from the next segment after the head,
+			// if any segment coincides with the head then the snake
+			// has eaten itself
+			for (auto index = _body_position_indices->begin()+1; index != _body_position_indices->end(); index++) {
+				if (*index == head_index)
+					return true;
+			}
+
 			return false;
 		}
 
