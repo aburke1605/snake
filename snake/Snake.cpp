@@ -53,6 +53,10 @@ class Snake {
 			}
 		}
 
+		bool SelfConsumes() {
+			return false;
+		}
+
 		void Extend() {
 			// the new tail segment gets appended to the old tail segment in
 			// the space adjacent and opposite to its velocity

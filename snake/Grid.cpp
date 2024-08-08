@@ -38,6 +38,10 @@ class Grid {
 			// move snake along
 			_snake->Slither(_size);
 
+			// check for autophagia
+			if (_snake->SelfConsumes())
+				return true;
+
 			// draw body segment positions
 			for (auto& index : _snake->GetBodyPositionIndices()) {
 				sf::RectangleShape segment(sf::Vector2f(_cell_width, _cell_height));
