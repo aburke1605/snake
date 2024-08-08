@@ -11,14 +11,18 @@ class Snake {
 	public:
 		Snake(unsigned int grid_size, std::mt19937& generator) {
 			_body_position_indices = new std::vector<sf::Vector2i>;
+			_velocities = new std::vector<sf::Vector2i>;
 
 			// assign a random starting position within the grid
 			std::uniform_int_distribution<> distribution(0, grid_size - 1);
 			_body_position_indices->push_back(sf::Vector2i(distribution(generator), distribution(generator)));
 
-			_velocity = sf::Vector2i(0, 0);
+			_velocities->push_back(sf::Vector2i(0, 0));
 		}
 
+		unsigned int GetLength() const {
+			return (unsigned int)_body_position_indices->size();
+		}
 
 		sf::Vector2i GetHeadPositionIndex() const {
 			return (*_body_position_indices)[0];
@@ -29,9 +33,12 @@ class Snake {
 		}
 
 		void Slither(unsigned int grid_size) {
-			for (auto& index : *_body_position_indices) {
-				index.x += _velocity.x;
-				index.y += _velocity.y;
+			for (unsigned int i = 0; i < GetLength(); i++) {
+				sf::Vector2i& index = (*_body_position_indices)[i];
+				sf::Vector2i& velocity = (*_velocities)[i];
+
+				index.x += velocity.x;
+				index.y += velocity.y;
 
 				// check the segment has not left the grid
 				if (index.x < 0) index.x += (int)grid_size;
@@ -42,12 +49,14 @@ class Snake {
 		}
 
 		void ChangeDirection(sf::Vector2i& new_velocity) {
-			_velocity = new_velocity;
+			for (auto& velocity : *_velocities) {
+				velocity = new_velocity;
+			}
 		}
 
 	private:
 		std::vector<sf::Vector2i>* _body_position_indices;
 
-		sf::Vector2i _velocity;
+		std::vector<sf::Vector2i>* _velocities;
 
 };
