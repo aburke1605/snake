@@ -41,7 +41,6 @@ class Grid {
 			// draw body segment positions
 			for (auto& index : _snake->GetBodyPositionIndices()) {
 				sf::RectangleShape segment(sf::Vector2f(_cell_width, _cell_height));
-				//mBody.setOrigin(-_cell_width/2, -_cell_height/2);
 				segment.setPosition(sf::Vector2f(_x_coordinates[index.x], _y_coordinates[index.y]));
 				segment.setFillColor(sf::Color(150, 50, 250));
 
