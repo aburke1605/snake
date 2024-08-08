@@ -67,6 +67,10 @@ class Grid {
 				_snake->Extend();
 			}
 
+			// check if game complete
+			if (_snake->GetLength() == _size * _size)
+				return true;
+
 			// draw food
 			sf::CircleShape bite((_cell_width + _cell_height) / 2 / 2);
 			sf::Vector2u index = _food->GetPositionIndex();
