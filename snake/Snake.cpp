@@ -49,6 +49,8 @@ class Snake {
 		}
 
 		void Extend() {
+			// the new tail segment gets appended to the old tail segment in
+			// the space adjacent and opposite to its velocity
 			sf::Vector2i& tail_position_index = (*_body_position_indices).back();
 			sf::Vector2i tail_velocity = (*_velocities).back();
 			_body_position_indices->push_back(sf::Vector2i(tail_position_index.x - tail_velocity.x, tail_position_index.y - tail_velocity.y));
