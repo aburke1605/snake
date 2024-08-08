@@ -11,11 +11,7 @@ int main() {
 	unsigned int grid_dimension = 400;
 	sf::RenderWindow window(sf::VideoMode(grid_dimension, grid_dimension), "snake");
 
-
-	unsigned int grid_size = 10;
-	Grid grid(window, grid_size);
-
-
+	Grid grid(window);
 
 	while (window.isOpen()) {
 
