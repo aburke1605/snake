@@ -50,11 +50,14 @@ int main() {
 		}
 
 		// draw next frame
-		grid.Render(window);
+		bool game_over = grid.Render(window);
 		window.display();
 
 		// sleep before updating
 		Sleep(dt);
+
+		if (game_over)
+			break;
 	}
 
 	return 0;

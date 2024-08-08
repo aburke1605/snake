@@ -31,7 +31,11 @@ class Grid {
 			_snake->ChangeDirection(new_velocity);
 		}
 
-		void Render(sf::RenderWindow& window) {
+		bool Render(sf::RenderWindow& window) {
+			/*
+				returns: (bool) whether game is over
+			*/
+
 			// reset from previous frame
 			window.clear(sf::Color::Black);
 
@@ -63,6 +67,8 @@ class Grid {
 			bite.setPosition(sf::Vector2f(_x_coordinates[index.x], _y_coordinates[index.y]));
 			bite.setFillColor(sf::Color(100, 250, 50));
 			window.draw(bite);
+
+			return false;
 		}
 
 	private:
