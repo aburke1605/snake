@@ -23,7 +23,8 @@ class Grid {
 
 			_snake = new Snake(_size, _generator);
 			_food = new Food();
-			_food->Reposition(_size, _generator);
+			while (_snake->GetHeadPositionIndex() == (sf::Vector2i)_food->GetPositionIndex())
+				_food->Reposition(_size, _generator);
 		}
 
 		void ChangeDirection(sf::Vector2i& new_velocity) {
