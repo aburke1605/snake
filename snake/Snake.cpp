@@ -24,8 +24,8 @@ class Snake {
 			return (unsigned int)_body_position_indices->size();
 		}
 
-		sf::Vector2i GetHeadPositionIndex() const {
-			return (*_body_position_indices)[0];
+		sf::Vector2i& GetHeadPositionIndex() const {
+			return (*_body_position_indices).front();
 		}
 
 		std::vector<sf::Vector2i>& GetBodyPositionIndices() const {
@@ -63,8 +63,13 @@ class Snake {
 		}
 
 		void ChangeDirection(sf::Vector2i& new_velocity) {
-			// change only the head velocity
-			// the others follow by the Slither() function
+			// change only the head velocity, the others follow by the Slither() function
+			sf::Vector2i& head_velocity = _velocities->front();
+
+			// don't change if it is opposite to current velocity
+			if ((new_velocity.x == -1 * head_velocity.x && new_velocity.y ==      head_velocity.y) ||
+				(new_velocity.x ==      head_velocity.x && new_velocity.y == -1 * head_velocity.y))
+				return;
 			_velocities->front() = new_velocity;
 		}
 
