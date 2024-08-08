@@ -1,6 +1,6 @@
 #include <SFML/System.hpp>
 
-#include "Grid.cpp"
+#include "Game.cpp"
 
 #include <windows.h>
 
@@ -11,7 +11,7 @@ int main() {
 	unsigned int grid_dimension = 400;
 	sf::RenderWindow window(sf::VideoMode(grid_dimension, grid_dimension), "snake");
 
-	Grid grid(window);
+	Game game(window);
 
 	while (window.isOpen()) {
 
@@ -41,12 +41,12 @@ int main() {
 
 				// change direction only if one of the arrows is pressed
 				if (new_velocity != sf::Vector2i())
-					grid.ChangeDirection(new_velocity);
+					game.ChangeDirection(new_velocity);
 			}
 		}
 
 		// draw next frame
-		bool game_over = grid.Render(window);
+		bool game_over = game.Render(window);
 		window.display();
 
 		// sleep before updating

@@ -5,9 +5,9 @@
 #include "Snake.cpp"
 #include "Food.cpp"
 
-class Grid {
+class Game {
 	public:
-		Grid(sf::RenderWindow& window, unsigned int size = 15) {
+		Game(sf::RenderWindow& window, unsigned int size = 15) {
 			_size = size;
 
 			_cell_width = (float)window.getSize().x / _size;
