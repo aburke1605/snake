@@ -2,7 +2,13 @@
 
 #include "Game.cpp"
 
-#include <windows.h>
+#ifdef _WIN32
+    #include <windows.h>
+    #define sleep_ms(ms) Sleep(ms)
+#else
+    #include <unistd.h>
+    #define sleep_ms(ms) usleep((ms) * 1000)
+#endif
 
 constexpr unsigned dt = 300; // milliseconds
 
@@ -50,7 +56,7 @@ int main() {
 		window.display();
 
 		// sleep before updating
-		Sleep(dt);
+		sleep_ms(dt);
 
 		if (game_over)
 			break;
