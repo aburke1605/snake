@@ -18,7 +18,7 @@ $ cd SFML
 $ git switch SFML-2.6.x-EMCC
 ```
 
-Build and install static SFML libraries somewhere:
+Build and install static SFML libraries somewhere (my `cmake` version is 3.24.0):
 ```bash
 $ mkdir build && cd build
 $ emcmake cmake .. -DBUILD_SHARED_LIBS=false
