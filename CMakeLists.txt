@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.15)
-project (Project)
-set(APP_NAME "Project")
+project (snake)
+set(APP_NAME "snake")
 set(APP_VERSION "1.0.0")
 set(APP_IDENTIFIER "com.Username.App")
 
@@ -43,7 +43,7 @@ elseif(MACOS)
 elseif(IOS)
     set(SFML_LOC "<insert>/SFML-2.6.1-iOS")
 elseif(EMSCRIPTEN)
-    set(SFML_LOC "${CMAKE_SOURCE_DIR}/../../SFML")
+    set(SFML_LOC "${CMAKE_SOURCE_DIR}/SFML")
 endif()
 
 #FILES
